@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MainPay Ads</title>
+<script src='//libtl.com/sdk.js' data-zone='12019075' data-sdk='show_12019075'></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+body{background:#0f0f0f;color:white;text-align:center;padding:30px;font-family:Arial}
+button{background:#2ea44f;color:white;border:0;padding:18px 40px;font-size:20px;border-radius:12px;margin-top:20px}
+</style>
+</head>
+<body>
+<h2>MainPay - Watch & Earn</h2>
+<p>Watch ad, get $0.01</p>
+<button onclick="watch()">▶️ WATCH AD</button>
+<p id="msg"></p>
+<script>
+let tg=window.Telegram.WebApp; tg.expand();
+function watch(){
+ document.getElementById('msg').innerText='Loading ad...';
+ show_12019075().then(()=>{
+   document.getElementById('msg').innerText='Ad done! $0.01 added!';
+   // send reward to bot
+   fetch('/reward?uid='+tg.initDataUnsafe.user.id)
+  .then(()=>{ setTimeout(()=>{ tg.close() }, 1500) });
+ }).catch(e=>{
+   document.getElementById('msg').innerText='No ad now, try later';
+ });
+}
+</script>
+</body>
+</html>
